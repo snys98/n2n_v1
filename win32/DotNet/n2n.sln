@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27309.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "edge", "n2n.vcxproj", "{4911ADD4-08A3-4C9F-B9C9-9492DA10D01D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "supernode", "supernode\supernode.vcxproj", "{1F7F0E45-7DE9-4CE2-845F-38D59C2E4F51}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4911ADD4-08A3-4C9F-B9C9-9492DA10D01D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4911ADD4-08A3-4C9F-B9C9-9492DA10D01D}.Debug|Win32.Build.0 = Debug|Win32
+		{4911ADD4-08A3-4C9F-B9C9-9492DA10D01D}.Release|Win32.ActiveCfg = Release|Win32
+		{4911ADD4-08A3-4C9F-B9C9-9492DA10D01D}.Release|Win32.Build.0 = Release|Win32
+		{1F7F0E45-7DE9-4CE2-845F-38D59C2E4F51}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1F7F0E45-7DE9-4CE2-845F-38D59C2E4F51}.Debug|Win32.Build.0 = Debug|Win32
+		{1F7F0E45-7DE9-4CE2-845F-38D59C2E4F51}.Release|Win32.ActiveCfg = Release|Win32
+		{1F7F0E45-7DE9-4CE2-845F-38D59C2E4F51}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {01B546F3-F465-4D22-90A4-B9CE2E4AA8D7}
+	EndGlobalSection
+EndGlobal
