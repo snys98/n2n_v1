@@ -1,95 +1,27 @@
+# N2N VPN v1
 
+### N2N VPN是一个部署和使用都比较方便的VPN, 此Repo只保证服务端supernode可以编译通过. 原repo(https://github.com/ntop/n2n) 编译成Windows的版本操作起来实在是比较麻烦, 所以这里单独建了一个repo来处理windows下面supernode的编译, 特纪录在此, 以备后用.
 
-Edge node
----------
+### 关于N2N的更多介绍和客户端的使用请参考网上的文章
 
-You need to start an egde node on each host you want to connect with the *same*
-community.
+## 编译:
 
-0. become root
+### 前置条件: vs2017(需安装C++开发模块)
 
-1. create tun device
-# tunctl -t tun0
+### 操作:
 
-3. enable the edge process
-# ./edge -d n2n0 -c mynetwork -k encryptme -u 99 -g 99 -m 3C:A0:12:34:56:78 -a 1.2.3.4 -l a.b.c.d:xyw
- or
-# N2N_KEY=encryptme ./edge -d n2n0 -c mynetwork -u 99 -g 99 -m 3C:A0:12:34:56:78 -a 1.2.3.4 -l a.b.c.d:xyw
+打开位于".\win32\DotNet"目录下的n2n.sln, 修改supernode项目的windows sdk的版本至本机版本, 生成supernode项目, 对应的supernode.exe文件位于".\win32\DotNet\Release"目录下
 
-Once you have this worked out, you can add the "-f" option to make edge detach
-and run as a daemon.
+#### 这里提供一个本人于win10 insider下编译的supernode.exe(https://gist.github.com/snys98/2dc46951e0d9532fc997578d95a45435)
 
-Note that -u, -g and -f options are not available for Windows.
+## 使用
 
-Supernode
---------
+### 前置条件: 有固定ip的云服务器, 安装有和vs对应版本的vcredist
 
-You need to start the supernode once
+### 操作:
 
-1. ./supernode -l 1234 -v
-
-
-Dropping Root Privileges and SUID-Root Executables (UNIX)
---------------------------------------------------
-
-The edge node uses superuser privileges to create a TAP network interface
-device. Once this is created root privileges are not required and can constitute
-a security hazard if there is some way for an attacker to take control of an
-edge process while it is running. Edge will drop to a non-privileged user if you
-specify the -u <uid> and -g <gid> options. These are numeric IDs. Consult
-/etc/passwd.
-
-You may choose to install edge SUID-root to do this:
-
-1. Become root
-2. chown root:root edge
-3. chmod +s edge
-done
-
-Any user can now run edge. You may not want this, but it may be convenient and
-safe if your host has only one login user.
-
-
-Running As a Daemon (UNIX)
--------------------
-
-When given "-f" as a command line option, edge will call daemon(3) after
-successful setup. This causes the process to fork a child which closes stdin,
-stdout and stderr then sets itself as process group leader. When this is done,
-the edge command returns immediately and you will only see the edge process in
-the process listings, eg. from ps or top.
-
-If the edge command returns 0 then the daemon started successfully. If it
-returns non-zero then edge failed to start up for some reason. When edge starts
-running as a daemon, all logging goes to syslog daemon.info facility.
-
-
-IPv6 Support (added r3650)
-------------
-
-n2n supports the carriage of IPv6 packets within the n2n tunnel. N2n does not
-yet use IPv6 for transport between edges and supernodes.
-
-To make IPv6 carriage work you need to manually add IPv6 addresses to the TAP
-interfaces at each end. There is currently no way to specify an IPv6 address on
-the edge command line.
-
-eg. under linux:
-
-on hostA:
-[hostA] # /sbin/ip -6 addr add fc00:abcd:1234::7/48 dev n2n0
-
-on hostB:
-[hostB] # /sbin/ip -6 addr add fc00:abcd:1234::6/48 dev n2n0
-
-You may find it useful to make use of tunctl from the uml-utilities
-package. Tunctl allow you to bring up a TAP interface and configure addressing
-prior to starting edge. It also allows edge to be restarted without the
-interface closing (which would normally affect routing tables).
-
-Once the IPv6 addresses are configured and edge started, IPv6 neighbor discovery
-packets flow (get broadcast) and IPv6 entities self arrange. Test your IPv6
-setup with ping6 - the IPv6 ping command.
-
-
-(C) 2007,2008 - Luca Deri <deri@ntop.org>, Richard Andrews <andrews@ntop.org>
+cd 至supernode.exe所在文件夹
+```powershell
+# 端口号任意指定即可(注意配置云服务器防火墙规则)
+.\supernode.exe -l <端口号>
+```
